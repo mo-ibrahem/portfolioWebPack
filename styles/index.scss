@@ -1,3 +1,17 @@
+@import './utils/variables.scss';
+@import './utils/functions.scss';
+@import './utils/mixins.scss';
+@import './utils/vendors.scss';
+@import './utils/responsive.scss';
+
+@import './shared/descriptions.scss';
+@import './shared/titles.scss';
+
+@import './base/fonts.scss';
+@import './base/reset.scss';
+@import './base/base.scss';
+
+
 @import './pages/about/about.scss';
 @import './pages/about/content.scss';
 @import './pages/about/gallery.scss';
@@ -5,4 +19,7 @@
 
 @import './pages/details/details.scss';
 @import './pages/collections/collections.scss';
-@import './pages/home/home.scss'
+@import './pages/home/home.scss';
+
+@import './components/preloader.scss';
+
