@@ -6,6 +6,11 @@
   width: 100%;
 }
 //avoid flickering images in smooth scroll
+%center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 @mixin ratio($height,$width){
   font-size:0;
   overflow: hidden;

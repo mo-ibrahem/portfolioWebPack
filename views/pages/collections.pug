@@ -8,7 +8,7 @@ block content
     .collections_wrapper
       .collections__titles
         each collection, index in collections
-          .collections__title__label=`${home.data.collection} ${index == 0 ? 'one' : index == 1 ? 'Two': index == 2? 'Three': index == 3? 'Four': ''}`
+          .collections__title__label!=`${home.data.collection}<br> ${index == 0 ? 'one' : index == 1 ? 'Two': index == 2? 'Three': index == 3? 'Four': ''}`
           .collections__titles__title=collection.data.title
 
       .collections__gallery
@@ -16,12 +16,12 @@ block content
           each collection in collections
             each product in collection.data.products
               a.collections__gallery__link(href=Link(product.products_collection))
-                figure.collection__gallery__media
-                  img.collection__gallery__media__image(alt=product.products_collection.data.image.alt src=product.products_collection.data.image.url)
+                figure.collections__gallery__media
+                  img.collections__gallery__media__image(alt=product.products_collection.data.image.alt src=product.products_collection.data.image.url)
 
 
       .collections__content
-        each collection in collections
-          article.collections__article
+        each collection, index in collections
+          article.collections__article(class=`${index === 0 ? 'collections__article--active' : ''}`)
             h2.collections__article__title=`${collection.data.title} ${home.data.collection}`
             p.collections__article__description=collection.data.description
