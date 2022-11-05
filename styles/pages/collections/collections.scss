@@ -37,7 +37,6 @@
 
 .collections__gallery{
   @extend %cover;
-
 }
 
 .collections__gallery__wrapper{
@@ -66,7 +65,6 @@
 
 .collections__content{
   @extend %cover;
-
 }
 
 .collections__article{
@@ -81,12 +79,9 @@
 
 .collections__article__title{
   @extend %title-60;
-
 }
 
 .collections__article__description{
   @extend %description-16;
   max-width: 46rem;
-
-
 }
