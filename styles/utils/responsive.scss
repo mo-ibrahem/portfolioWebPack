@@ -1,8 +1,4 @@
-$breakoints: (
-  'phone': 768px,
-  'tablet': 1024px,
-  'macbook-13':1440px,
-  'desktop': 1920px,
-) !default;
 @import '../../node_modules/include-media/dist/_include-media.scss';
+$breakpoints: (phone: 720px, tablet: 1024px, desktop: 1440px);
+
 

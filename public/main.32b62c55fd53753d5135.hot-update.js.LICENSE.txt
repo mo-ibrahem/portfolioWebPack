@@ -1,0 +1,9 @@
+/*! pages/about */
+
+/*! pages/collections */
+
+/*! pages/detail */
+
+/*!**********************!*\
+  !*** ./app/index.js ***!
+  \**********************/

@@ -18,8 +18,17 @@ block content
           .detail__information__highlights
             each highlight in product.data.highlights
               p.detail__information__highlight
-                svg.detail__information_highlight__icon
-                  use(xlink:href=`sprite-${highlight.highlights_icon.toLowerCase()}`)
+                if highlight.highlights_icon === 'Arrow'
+                  svg.detail__information_highlight__icon(fill="none"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40")
+                    path( d="M20 39.5C30.7696 39.5 39.5 30.7696 39.5 20C39.5 9.23045 30.7696 0.5 20 0.5C9.23045 0.5 0.5 9.23045 0.5 20C0.5 30.7696 9.23045 39.5 20 39.5Z" stroke="currentColor")
+                    path( d="M30.7522 9.54661L30.0924 11.9034L30.0451 14.4964L28.1126 12.1862L25.8024 10.2537L28.3954 10.2063L30.7522 9.54661Z" fill="currentColor")
+                    path( d="M10.2459 30.0528L10.9056 27.696L10.953 25.103L12.8855 27.4131L15.1956 29.3456L12.6027 29.393L10.2459 30.0528Z" fill="currentColor")
+                    path(  d="M14.8428 25.4561L26.1565 14.1423" stroke="currentColor" stroke-width="2" stroke-linecap="round")
+                else
+                  svg.detail__information_highlight__icon( viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
+                    path( d="M20 39.5C30.7696 39.5 39.5 30.7696 39.5 20C39.5 9.23045 30.7696 0.5 20 0.5C9.23045 0.5 0.5 9.23045 0.5 20C0.5 30.7696 9.23045 39.5 20 39.5Z" stroke="currentColor")
+                    path( d="M24.2653 9.86594L21.5103 18.4659L30.2283 15.8319L22.0703 19.9659L30.2243 24.2309L21.5103 21.4119L24.3323 30.3179L20.0673 21.9759L15.9283 30.1299L18.5623 21.4119L9.96534 24.1659L18.1193 19.9659L9.77734 15.6379L18.5573 18.4609L15.7353 9.67993L20.0623 18.0219L24.2653 9.86594Z" fill="currentColor")
+
 
                 span.detail__information__highlight__text!=highlight.highlights_text.replace(/\n/,'<br>')
 
@@ -29,4 +38,9 @@ block content
                 strong.detail__information__item__title=item.information_label
                 span.detail__information__item__description!=item.information_discription.replace(/\n/,'<br>')
 
-          a.detail__information__item__link(href=product.data.link_url.url target="_blank")=product.data.link_text
+            a.detail__information__item__link(href=product.data.link_url.url target="_blank")=product.data.link_text
+
+    button.detail__button Close
+      svg.detail__button__icon(viewBox="0 0 124 60"  xmlns="http://www.w3.org/2000/svg")
+        path(fill="none" d="M123.5 30C123.5 37.9842 116.796 45.3568 105.623 50.7631C94.4846 56.1526 79.0623 59.5 62 59.5C44.9377 59.5 29.5154 56.1526 18.3772 50.7631C7.2042 45.3568 0.5 37.9842 0.5 30C0.5 22.0158 7.2042 14.6431 18.3772 9.23688C29.5154 3.84743 44.9377 0.5 62 0.5C79.0623 0.5 94.4846 3.84743 105.623 9.23688C116.796 14.6431 123.5 22.0158 123.5 30Z" stroke="currentColor")
+

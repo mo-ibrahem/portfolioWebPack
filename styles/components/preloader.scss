@@ -3,9 +3,11 @@
   display: none;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
   text-align: center;
   background: $color-contessa;
   color: $color-white;
+  z-index: z('preloader');
 }
 .preloader__text{
   @extend %title-53;

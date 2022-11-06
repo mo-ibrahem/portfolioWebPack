@@ -2,12 +2,18 @@
   font-family: $font-suisse-bp;
   font-weight: 300;
   font-size: 1.2rem;
+  @include media('<phone'){
+    font-size:2rem;
+  }
 }
 
 %description-14{
   font-family: $font-suisse-bp;
   font-weight: 300;
   font-size: 1.4rem;
+  @include media('<phone'){
+    font-size:2rem;
+  }
 }
 
 %description-16{
@@ -15,4 +21,7 @@
   font-size: 1.6rem;
   line-height: 1.5;
   font-weight: 300;
+  @include media('<phone'){
+    font-size:2.5rem;
+  }
 }

@@ -19,6 +19,10 @@
   display: flex;
   transform: translate(-50%, -50%) rotate(-90deg);
 
+  @include media('<phone'){
+    display:none;
+  }
+
 }
 
 .collections__title__label{
@@ -65,6 +69,9 @@
 
 .collections__content{
   @extend %cover;
+  @include media('<phone'){
+    display:none;
+  }
 }
 
 .collections__article{
@@ -85,3 +92,23 @@
   @extend %description-16;
   max-width: 46rem;
 }
+
+.collections__mobile{
+  display: flex;
+  position: absolute;
+  bottom: 5rem;
+}
+.collections__mobile__item{
+  padding-left:5rem;
+  width: 100vh;
+}
+.collections__mobile__item__label{
+  font-size:2rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+.collections__mobile__item__title{
+  font-family: $font-george-x;
+  font-size: 12rem;
+}
+
