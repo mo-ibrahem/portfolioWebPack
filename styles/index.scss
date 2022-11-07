@@ -6,7 +6,7 @@
 @import './utils/mixins.scss';
 @import './utils/vendors.scss';
 
-
+@import './shared/pages.scss';
 @import './shared/titles.scss';
 @import './shared/descriptions.scss';
 
@@ -18,10 +18,6 @@
 @import './pages/about/content.scss';
 @import './pages/about/gallery.scss';
 @import './pages/about/highlight.scss';
-
-
-
-
 @import './pages/collections/collections.scss';
 @import './pages/home/home.scss';
 

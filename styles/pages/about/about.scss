@@ -1,4 +1,5 @@
 .about{
+  @extend %page;
   background: $color-cadetblue;
   color: $color-bright-gray;
   max-width:100vw;

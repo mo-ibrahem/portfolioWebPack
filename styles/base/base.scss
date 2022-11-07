@@ -5,6 +5,11 @@
 html{
   font-size: calc((100vw / 1920 * 10));
   line-height:1;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
   @include media('<phone'){
     font-size: calc(100vw / 750 * 10)
   }
@@ -13,11 +18,24 @@ body{
   @extend %description-16;
   font-family: $font-suisse-bp;
   font-weight: 300;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
   @include media("<phone"){
     body{
       background:red;
     }
   }
+}
+.content{
+
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 a{
   color: inherit;

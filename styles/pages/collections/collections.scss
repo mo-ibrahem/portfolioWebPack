@@ -1,9 +1,10 @@
 
 .collections{
- @extend %cover;
- background:$color-quickstand;
- color: $color-quarterspanish-white;
- overflow: hidden;
+  @extend %page;
+
+  background:$color-quickstand;
+  color: $color-quarterspanish-white;
+  overflow: hidden;
 }
 
 .collections_wrapper{

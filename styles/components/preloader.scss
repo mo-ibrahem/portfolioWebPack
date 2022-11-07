@@ -1,24 +1,36 @@
 .preloader{
   @extend %cover;
-  display: none;
   align-items: center;
+  display: flex;
   justify-content: center;
   pointer-events: none;
   text-align: center;
   background: $color-contessa;
   color: $color-white;
   z-index: z('preloader');
+  overflow: hidden;
 }
 .preloader__text{
-  @extend %title-53;
   font-weight: 400;
   max-width: 68rem;
-  letter-spacing:0.05rem
+  letter-spacing:0.05rem;
+  font-size:0;
+  span{
+    display: inline-block;
+    overflow: hidden;
+  }
+  span span{
+    @extend %title-53;
+  }
 }
 
 .preloader__number{
   font-size: 2.5rem;
   position: absolute;
   bottom: 7.3rem;
+  overflow: hidden;
+}
+.preloader__number__text{
+  display: inline-block;
 }
 

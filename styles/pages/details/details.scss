@@ -1,7 +1,7 @@
 
 .detail{
-  @extend %cover;
   @extend %center;
+  @extend %page;
 
   background: $color-quickstand;
   color: $color-white;
