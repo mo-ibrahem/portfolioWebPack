@@ -1,7 +1,9 @@
 import GSAP from 'gsap'
 import Prefix from 'prefix'
 import each from 'lodash/each'
+import map from 'lodash/map'
 import NormalizeWheel from 'normalize-wheel'
+import Title from 'animations/title'
 export default class Page {
   constructor({
         element,
@@ -11,7 +13,8 @@ export default class Page {
   {
     this.selector = element;
     this.selectorChildren = {
-      ...elements
+      ...elements,
+      animationsTitles: '[data-animation="title"]'
     };
     this.id = id
     this.transformPrefix = Prefix('transform')
@@ -50,6 +53,15 @@ export default class Page {
         }
       }
 
+    })
+
+    this.createAnimations()
+  }
+  createAnimations(){
+    this.animationsTitles = map(this.elements.animationsTitles, element =>{
+      return new Title({
+        element
+      })
     })
   }
   show(){

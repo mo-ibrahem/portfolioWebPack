@@ -14,7 +14,7 @@ block content
 
       each section in about.data.body
         if section.slice_type == 'title'
-          h2.about_title!= section.primary.text.replace(/\n/g,'<br>')
+          h2.about_title(data-animation="title")!= section.primary.text.replace(/\n/g,'<br>')
 
         if section.slice_type == 'content'
           section.about__content(class=`${section.primary.select === 'Left' ? 'about__content--left' : 'about__content--right'}`)
@@ -30,7 +30,7 @@ block content
             .about__highlight__wrapper
               if section.primary.label
                 p.about__hightlight_label=section.primary.label
-              h3.about__highlight__title=section.primary.title
+              h3.about__highlight__title(data-animation="title")=section.primary.title
               .about__highlight__medias
                 each media in section.items
                   figure.about__hightlight__media
