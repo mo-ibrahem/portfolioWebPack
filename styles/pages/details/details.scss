@@ -3,8 +3,8 @@
   @extend %center;
   @extend %page;
 
-  background: $color-quickstand;
-  color: $color-white;
+  // background: $color-quickstand;
+  // color: $color-white;
   @include media('<phone'){
     height: auto;
   }

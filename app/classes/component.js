@@ -1,4 +1,3 @@
-import GSAP from 'gsap'
 import each from 'lodash/each'
 import EventEmitter from 'events'
 export default class Component extends EventEmitter {

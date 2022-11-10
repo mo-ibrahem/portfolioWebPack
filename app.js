@@ -10,6 +10,7 @@ const logger = require('morgan')
 const app = express()
 const path = require('path')
 const port = 3000
+const uaParser = require('ua-parser-js')
 
 const Prismic = require('prismic-javascript')
 const PrismicDOM = require('prismic-dom')

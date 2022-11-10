@@ -23,11 +23,7 @@ body{
   position: fixed;
   left: 0;
   top: 0;
-  @include media("<phone"){
-    body{
-      background:red;
-    }
-  }
+
 }
 .content{
 
@@ -45,6 +41,11 @@ a{
 
 img{
   vertical-align: middle;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  &.loaded{
+    opacity: 1;
+  }
 }
 
 button{
@@ -53,4 +54,12 @@ button{
   outline: none;
   cursor: pointer;
   border: none;
+}
+
+[data-animation="title"],[data-animation="paragraph"],[data-animation="label"]{
+  span{
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+  }
 }

@@ -4,6 +4,11 @@ import each from 'lodash/each'
 import map from 'lodash/map'
 import NormalizeWheel from 'normalize-wheel'
 import Title from 'animations/title'
+import Label from 'animations/label'
+import Highlight from 'animations/highlight'
+import Paragraph from 'animations/paragraphs'
+import {ColorsManager} from 'classes/colors'
+import AsyncLoad from 'classes/asyncLoad'
 export default class Page {
   constructor({
         element,
@@ -14,11 +19,14 @@ export default class Page {
     this.selector = element;
     this.selectorChildren = {
       ...elements,
-      animationsTitles: '[data-animation="title"]'
+      animationsTitles: '[data-animation="title"]',
+      animationsHighlights: '[data-animation="highlight"]',
+      animationsParagraphs: '[data-animation="paragraph"]',
+      animationsLabels: '[data-animation="label"]',
+      preloaders: '[data-src]'
     };
     this.id = id
     this.transformPrefix = Prefix('transform')
-    console.log(this.transformPrefix)
 
     this.scroll = {
       current: 0,
@@ -40,6 +48,7 @@ export default class Page {
       limit: 0,
 
     }
+
     each(this.selectorChildren,(entry, key) => {
       if( entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)){
         this.elements[key] = entry
@@ -56,18 +65,54 @@ export default class Page {
     })
 
     this.createAnimations()
+    this.createAsyncLoad()
+  }
+  createAsyncLoad(){
+    this.preloaders = map(this.elements.preloaders, element =>{
+      return new AsyncLoad({element})
+    })
   }
   createAnimations(){
+    this.animations = []
+    // labels
+    this.animationsHighlights = map(this.elements.animationsHighlights, element =>{
+      return new Highlight({
+        element
+      })
+    })
+    this.animations.push(...this.animationsHighlights)
+    // highlights
     this.animationsTitles = map(this.elements.animationsTitles, element =>{
       return new Title({
         element
       })
     })
+    this.animations.push(...this.animationsTitles)
+
+    // Paragraphs
+    this.animationsParagraphs = map(this.elements.animationsParagraphs, element =>{
+      return new Paragraph({
+        element
+      })
+    })
+    this.animations.push(...this.animationsParagraphs)
+
+    // labels
+    this.animationsLabels = map(this.elements.animationsLabels, element =>{
+      return new Label({
+        element
+      })
+    })
+    this.animations.push(...this.animationsLabels)
   }
   show(){
     return new Promise(resolve =>{
       this.animationIn = GSAP.timeline()
-
+      ColorsManager.change({
+          backgroundColor: this.element.getAttribute('data-background'),
+          color: this.element.getAttribute('data-color')
+        }
+      )
       this.animationIn.fromTo(this.element,{
         autoAlpha: 0,
         onComplete: resolve
@@ -78,12 +123,13 @@ export default class Page {
         this.addEventListeners()
         resolve()
       })
+      this.createAsyncLoad()
     })
   }
 
   hide(){
     return new Promise(resolve =>{
-      this.removeEventListeners()
+      this.destroy()
       this.animationOut = GSAP.timeline()
 
       this.animationOut.to(this.element,{
@@ -102,6 +148,7 @@ export default class Page {
     if(this.elements.wrapper){
       this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
     }
+    each(this.animations, animation => animation.onResize())
   }
 
   update(){
@@ -124,5 +171,7 @@ export default class Page {
     window.removeEventListener('mousewheel', this.onMouseWheelEvent)
 
   }
-  n
+  destroy(){
+    this.removeEventListeners();
+  }
 }

@@ -2,8 +2,8 @@
 .collections{
   @extend %page;
 
-  background:$color-quickstand;
-  color: $color-quarterspanish-white;
+  // background:$color-quickstand;
+  // color: $color-quarterspanish-white;
   overflow: hidden;
 }
 
@@ -95,9 +95,12 @@
 }
 
 .collections__mobile{
-  display: flex;
+  display: none;
   position: absolute;
   bottom: 5rem;
+  @include media('<phone'){
+    display: flex;
+  }
 }
 .collections__mobile__item{
   padding-left:5rem;

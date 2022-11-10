@@ -13,6 +13,7 @@ export default class Preloader extends Component {
         images: document.querySelectorAll('img')
       }
     })
+
     split({
       element: this.elements.title,
       expression: '<br>'
@@ -21,9 +22,10 @@ export default class Preloader extends Component {
       element: this.elements.title,
       expression: '<br>'
     })
+
     this.elements.titleSpans = this.elements.title.querySelectorAll('span span')
     this.length  = 0
-    
+ 
     this.createLoader()
 
   }
@@ -39,7 +41,7 @@ export default class Preloader extends Component {
   onAssetLoaded(image){
     this.length += 1
     const percent = this.length / this.elements.images.length
-    
+
     this.elements.numberText.innerHTML = `${Math.round(percent * 100)}%`
     if (percent === 1){
       this.onLoaded()

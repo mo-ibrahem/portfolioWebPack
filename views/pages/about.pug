@@ -4,7 +4,7 @@ block variables
   - var template = 'about'
 
 block content
-  .about
+  .about(data-background="#B2B8C3" data-color="#37384c" )
     .about__wrapper
       section.about__gallery
         .about__gallery__wrapper
@@ -20,8 +20,8 @@ block content
           section.about__content(class=`${section.primary.select === 'Left' ? 'about__content--left' : 'about__content--right'}`)
             .about__content__wrapper
               .about__content__box
-                p.about__content__label!=section.primary.label
-                .about__content__description!=PrismicDOM.RichText.asHtml(section.primary.description)
+                p.about__content__label(data-animation="label")!=section.primary.label
+                .about__content__description(data-animation="paragraph")!=PrismicDOM.RichText.asHtml(section.primary.description)
               figure.about__content__media
                 img.about__content__media__image(alt=section.primary.image.alt data-src = section.primary.image.url)
 
@@ -29,8 +29,8 @@ block content
           section.about__hightlight
             .about__highlight__wrapper
               if section.primary.label
-                p.about__hightlight_label=section.primary.label
-              h3.about__highlight__title(data-animation="title")=section.primary.title
+                p.about__hightlight_label(data-animation="label")=section.primary.label
+              h3.about__highlight__title(data-animation="highlight")=section.primary.title
               .about__highlight__medias
                 each media in section.items
                   figure.about__hightlight__media
