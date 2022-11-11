@@ -14,7 +14,8 @@ export default class Navigation extends Component {
   }
 
   onChange(template){
-    if( template === 'about'){
+    console.log(template)
+    if( template.url === 'about' || template === 'about'){
       GSAP.to(this.element, {
         color: COLOR_BRIGHT_GREY,
         duration: 1.5

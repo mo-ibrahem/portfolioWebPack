@@ -9,7 +9,7 @@ block content
       section.about__gallery
         .about__gallery__wrapper
           each media in about.data.gallery
-            figure.about___gallery__media
+            figure.about__gallery__media
               img.about__gallery__media__image(alt=media.image.alt data-src = media.image.url)
 
       each section in about.data.body
@@ -40,5 +40,5 @@ block content
           section.about__gallery
             .about__gallery__wrapper
               each media in section.items
-                figure.about___gallery__media
+                figure.about__gallery__media
                   img.about__gallery__media__image(alt=media.image.alt data-src = media.image.url)
