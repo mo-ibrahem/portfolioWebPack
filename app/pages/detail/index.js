@@ -22,6 +22,7 @@ export default class Detail extends Page{
   }
   destroy(){
     super.destroy()
-    this.link.removeEventListeners()
+    this.link.removeEventListener()
+
   }
 }

@@ -11,12 +11,15 @@ import Home from 'pages/home'
 class App{
   constructor(){
     this.createContent()
+    this.createCanvas()
     this.createPreloader()
     this.createNavigation()
+
     this.createPages()
-    this.createCanvas()
     this.addLinkListeners()
     this.addEventListeners()
+    this.onResize()
+
   };
   createContent(){
     this.content = document.querySelector('.content')
@@ -31,7 +34,7 @@ class App{
     this.pages = {
       home: new Home(),
       collections: new Collection(),
-      detail: new Detail(),
+      details: new Detail(),
       about: new About()
     }
     this.page = this.pages[this.template]
@@ -52,15 +55,19 @@ class App{
       // if(push){
       //   window.history.pushState({},'',url)
       // }
+
+      window.history.pushState({},'',url)
       div.innerHTML = html
 
       const divContent = div.querySelector('.content')
       this.template = divContent.getAttribute('data-template')
-      this.navigation.onChange({url:this.template})
+      this.navigation.onChange(this.template)
       this.content.setAttribute('data-template', this.template)
+      this.page = this.pages[this.template]
       this.content.innerHTML = divContent.innerHTML
       this.canvas.onChange(this.template)
-      this.page = this.pages[this.template]
+
+
       this.page.create()
       this.page.show()
       this.onResize()
@@ -90,12 +97,16 @@ class App{
   }
   // Preloader Functions
   createPreloader(){
-    this.preloader = new Preloader()
+    this.preloader = new Preloader({
+      canvas: this.canvas
+    })
     this.preloader.once('completed', this.onPreloaded.bind(this))
   }
-  async onPreloaded(){
+  onPreloaded(){
+
+
+    this.canvas.onPreloaded()
     this.onResize()
-    this.preloader.destroy()
     this.page.show()
 
   }

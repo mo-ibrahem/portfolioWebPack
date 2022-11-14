@@ -15,22 +15,23 @@ export default class Paragraph extends Animation{
 
   animateIn(){
     this.timelineIn = GSAP.timeline({delay: .5})
-    GSAP.set(this.element,{
-      autoAlpha: 1
+    this.timelineIn.to(this.element,{
+      autoAlpha: 1,
+      duration: 1,
     })
-    each(this.elementLines, (line, index)=>{
-      this.timelineIn.fromTo(line,{
-        autoAlpha: 0,
-        y: '100%'
-      }
-      ,{
-        autoAlpha:1,
-        delay: index * .2,
-        duration: 1.5,
-        ease: 'expo.out',
-        y:'0%'
-      },0)
-    })
+    // each(this.elementLines, (line, index)=>{
+    //   this.timelineIn.fromTo(line,{
+    //     autoAlpha: 0,
+    //     y: '100%'
+    //   }
+    //   ,{
+    //     autoAlpha:1,
+    //     delay: index * .2,
+    //     duration: 1.5,
+    //     ease: 'expo.out',
+    //     y:'0%'
+    //   },0)
+    // })
 
   }
 

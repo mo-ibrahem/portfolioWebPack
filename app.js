@@ -59,41 +59,67 @@ app.set('views',path.join(__dirname, 'views'))
 app.set('view engine','pug')
 
 const handeRequest = async api =>{
+  const home = await api.getSingle('home')
   const meta = await api.getSingle('meta')
   const preloader = await api.getSingle('preloader')
   const navigation = await api.getSingle('navigatio')
+  const about = await api.getSingle('about')
+  const { results: collections } = await api.query(Prismic.Predicates.at('document.type','collection'),{
+    fetchLinks: 'product.image'
+  })
+  const assets = []
+
+
+  home.data.gallery.forEach( item =>{
+    assets.push(item.image.url)
+  })
+
+  about.data.gallery.forEach( item =>{
+    assets.push(item.image.url)
+  })
+  about.data.body.forEach( section =>{
+    if(section.slice_type === 'gallery'){
+      section.items.forEach( item => {
+        assets.push(item.image.url)
+      })
+    }
+  })
+
+  collections.forEach( collection =>{
+    collection.data.products.forEach( item =>{
+      assets.push(item.products_collection.data.image.url)
+    })
+  })
+
+
   return {
+    collections,
     meta,
     preloader,
-    navigation
+    navigation,
+    home,
+    about,
+    assets
   }
 }
 
 app.get('/',async(req,res)=>{
   const api = await initApi(req)
-  const home = await api.getSingle('home')
   const defaults = await handeRequest(api)
-  const { results: collections } = await api.query(Prismic.Predicates.at('document.type','collection'),{
-    fetchLinks: 'product.image'
-  })
+
   res.render('pages/home',{
     ...defaults,
-    home,
-    collections,
-
   })
 })
 
 app.get('/about',async (req,res)=>{
   const api = await initApi(req)
   const defaults = await handeRequest(api)
-  const about = await api.getSingle('about')
   defaults.navigation.data.list.forEach(item  =>{
-    console.log(item)
   })
   res.render('pages/about',{
     ...defaults,
-    about,
+
   })
 })
 
@@ -118,17 +144,8 @@ app.get('/collections',async(req,res)=>{
   const api = await initApi(req)
   const defaults = await handeRequest(api)
 
-  const home = await api.getSingle('home')
-
-
-  const { results: collections } = await api.query(Prismic.Predicates.at('document.type','collection'),{
-    fetchLinks: 'product.image'
-  })
-
   res.render('pages/collections',{
     ...defaults,
-    collections,
-    home,
 
   })
 })

@@ -20,6 +20,8 @@
   display: flex;
   transform: translate(-50%, -50%) rotate(-90deg);
 
+  transition: transform 1s ease;
+
   @include media('<phone'){
     display:none;
   }
@@ -42,19 +44,28 @@
 
 .collections__gallery{
   @extend %cover;
+  z-index: 10;
+
 }
 
 .collections__gallery__wrapper{
   display: flex;
   align-items: center;
-  top: 50%;
+  top: 35%;
+  left: 50%;
   position: absolute;
-  transform: translateY(-50%)
+  transform: translate(-44.7rem *.5,-50%);
 }
 
 .collections__gallery__link{
   display: block;
   margin: 0 5.3rem;
+  &:first-child{
+    margin-left:0
+  }
+  &:first-last{
+    margin-right:0
+  }
 }
 
 .collections__gallery__media{
@@ -66,6 +77,8 @@
 .collections__gallery__media__image{
  @extend %cover;
  object-fit: cover;
+ opacity: 0;
+ pointer-events: none;
 }
 
 .collections__content{
@@ -80,8 +93,10 @@
   bottom: 8rem;
   position: absolute;
   opacity: 0;
+  transition: opacity 0.4s ease;
   &--active{
     opacity: 1;
+    transition-delay: .4s;
   }
 }
 

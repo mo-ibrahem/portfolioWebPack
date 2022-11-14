@@ -1,6 +1,7 @@
 import { Renderer, Camera, Transform } from 'ogl';
 import Home from './home'
 import About from './about'
+import Collections from'./collections'
 export default class Canvas {
   constructor({template}){
 
@@ -19,7 +20,6 @@ export default class Canvas {
     this.createScene()
     this.createCamera()
     this.onResize()
-    this.onChange(this.template)
   }
 
   // 3D scene creation ***
@@ -42,6 +42,8 @@ export default class Canvas {
   createScene(){
     this.scene  = new Transform()
   }
+
+  // Home WEBGL -------
   createHome(){
     this.home = new Home({
       gl: this.gl,
@@ -49,7 +51,14 @@ export default class Canvas {
       sizes: this.sizes
     })
   }
+  destroyHome(){
+    if(this.home){
+    this.home.destroy()
+    this.home = null}
+  }
 
+
+  // About WEBGL
   createAbout(){
     this.about = new About({
       gl: this.gl,
@@ -58,15 +67,24 @@ export default class Canvas {
     })
   }
 
-  destroyHome(){
-    if(this.home){
-    this.home.destroy()
-    this.home = null}
-  }
   destroyAbout(){
     if(this.about){
     this.about.destroy()
     this.about = null}
+  }
+  // collections WEBGL
+  createCollections(){
+    this.collections = new Collections({
+      gl: this.gl,
+      scene: this.scene,
+      sizes: this.sizes
+    })
+  }
+
+  destroyCollections(){
+    if(this.collections){
+    this.collections.destroy()
+    this.collections = null}
   }
 
 
@@ -79,6 +97,15 @@ export default class Canvas {
     if (this.home){
       this.home.hide()
     }
+
+    if (this.collections){
+      this.collections.hide()
+    }
+  }
+
+  onPreloaded(){
+    this.onChange(this.template)
+
   }
 
   onChange(template){
@@ -93,6 +120,15 @@ export default class Canvas {
       this.createAbout()
     }else{
       this.destroyAbout()
+    }
+
+    if (template === 'collections'){
+      this.gl.canvas.style.zIndex = 3
+      this.createCollections()
+    }else{
+      this.gl.canvas.style.zIndex = ''
+
+      this.destroyCollections()
     }
   }
 
@@ -121,11 +157,17 @@ export default class Canvas {
     if(this.about){
       this.about.onResize(values)
     }
+    if(this.collections){
+      this.collections.onResize(values)
+    }
   }
 
   onWheel(event){
     if(this.home){
       this.home.onWheel(event)
+    }
+    if(this.collections){
+      this.collections.onWheel(event)
     }
   }
 
@@ -141,6 +183,9 @@ export default class Canvas {
 
     if(this.about){
       this.about.onTouchDown(values)
+    }
+    if(this.collections){
+      this.collections.onTouchDown(values)
     }
 
     if(this.home){
@@ -164,6 +209,9 @@ export default class Canvas {
 
     if(this.about){
       this.about.onTouchMove(values)
+    }
+    if(this.collections){
+      this.collections.onTouchMove(values)
     }
 
     if(this.home){
@@ -190,6 +238,9 @@ export default class Canvas {
     if(this.about){
       this.about.onTouchUp(values)
     }
+    if(this.collections){
+      this.collections.onTouchUp(values)
+    }
 
     if(this.home){
       this.home.onTouchUp(values)
@@ -203,6 +254,9 @@ export default class Canvas {
   update(scroll){
     if(this.home){
       this.home.update()
+    }
+    if(this.collections){
+      this.collections.update()
     }
     if(this.about){
       this.about.update(scroll)

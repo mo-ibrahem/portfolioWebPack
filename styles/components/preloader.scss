@@ -9,6 +9,7 @@
   color: $color-white;
   z-index: z('preloader');
   overflow: hidden;
+  z-index: 12;
 }
 .preloader__text{
   font-weight: 400;

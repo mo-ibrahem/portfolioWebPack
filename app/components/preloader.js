@@ -1,18 +1,22 @@
 import Component from 'classes/component';
-import each from 'lodash/each'
+import { Texture } from 'ogl'
 import GSAP from 'gsap'
 import { split } from 'utils/text'
 export default class Preloader extends Component {
-  constructor(){
+  constructor({ canvas }){
     super({
       element: '.preloader',
       elements: {
         title: '.preloader__text',
         number: '.preloader__number',
         numberText: '.preloader__number__text',
-        images: document.querySelectorAll('img')
       }
     })
+
+    this.canvas = canvas
+
+    window.TEXTURES = {}
+
 
     split({
       element: this.elements.title,
@@ -28,19 +32,32 @@ export default class Preloader extends Component {
 
     this.createLoader()
 
+
   }
 
   createLoader(){
-    each(this.elements.images, element =>{
+    window.ASSETS.forEach(image =>{
+      const media = new window.Image()
+      media.crossOrigin = 'anonymous'
+      media.src = image
 
-      element.onload = _ => this.onAssetLoaded(element)
-      element.src = element.getAttribute('data-src')
+      const texture = new Texture(this.canvas.gl,{
+        generateMipmaps: false,
+
+      })
+
+      media.onload= _ =>{
+        texture.image = media
+        this.onAssetLoaded()
+      }
+
+      window.TEXTURES[image] = texture
     })
   }
 
   onAssetLoaded(image){
     this.length += 1
-    const percent = this.length / this.elements.images.length
+    const percent = this.length / window.ASSETS.length
 
     this.elements.numberText.innerHTML = `${Math.round(percent * 100)}%`
     if (percent === 1){
@@ -50,7 +67,9 @@ export default class Preloader extends Component {
 
   onLoaded(){
     return new Promise(resolve =>{
-      this.animateOut = GSAP.timeline({delay: 1})
+
+      this.emit('completed')
+      this.animateOut = GSAP.timeline({delay:1})
       this.animateOut.to(this.elements.titleSpans,{
         duration: 1.5,
         ease: 'expo.out',
@@ -63,15 +82,17 @@ export default class Preloader extends Component {
         stagger: 0.1,
         y: '100%',
       },'-=1.4')
+
+
       this.animateOut.to(this.element,{
-        scaleY: 0,
-        duration: 1.5,
-        ease: 'expo.out',
-        transformOrigin: '100% 100%'
+        autoAlpha: 0,
+        duration: 1,
       })
       this.animateOut.call(_ =>{
-        this.emit('completed')
+        this.destroy()
       })
+
+
     })
   }
   destroy(){

@@ -139,8 +139,6 @@ export default class Home{
           media.extra.x -= this.gallerySizes.width
         }
       }
-
-
         const scaleY = media.mesh.scale.y / 2
 
         if(this.y.direction === 'top'){
@@ -156,7 +154,6 @@ export default class Home{
           media.extra.y -= this.gallerySizes.height
           }
         }
-
       media.update(this.scroll)
     })
   }

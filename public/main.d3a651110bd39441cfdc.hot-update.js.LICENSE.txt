@@ -1,0 +1,21 @@
+/*! components/Canvas */
+
+/*! components/navigation */
+
+/*! components/preloader */
+
+/*! lodash/each */
+
+/*! normalize-wheel */
+
+/*! pages/about */
+
+/*! pages/collections */
+
+/*! pages/detail */
+
+/*! pages/home */
+
+/*!**********************!*\
+  !*** ./app/index.js ***!
+  \**********************/
