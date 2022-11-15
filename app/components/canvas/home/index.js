@@ -35,6 +35,11 @@ export default class Home{
       x: 0,
       y: 0
     }
+    this.speed = {
+      target: 0,
+      current: 0,
+      lerp: 0.1,
+    }
     this.show()
 
   }
@@ -52,7 +57,10 @@ export default class Home{
     })
   }
   createGeometry(){
-    this.geometry = new Plane(this.gl)
+    this.geometry = new Plane(this.gl,{
+      heightSegments: 20,
+      widthSegments: 20
+    })
   }
 
   //  EVENTS
@@ -73,6 +81,7 @@ export default class Home{
   }
 
   onTouchDown({x,y}){
+
     this.scrollCurrent.x = this.scroll.x
     this.scrollCurrent.y = this.scroll.y
   }
@@ -105,6 +114,14 @@ export default class Home{
   // Update
   update(){
     if(!this.galleryBounds) return
+
+    const a = this.x.target - this.x.current
+    const b = this.y.target - this.y.current
+
+    this.speed.target = Math.sqrt( a* a + b * b) * 0.001
+    this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.lerp)
+
+
     this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp)
     this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp)
 
@@ -124,18 +141,21 @@ export default class Home{
     this.scroll.x = this.x.current
     this.scroll.y = this.y.current
 
+
+
+
     map(this.medias, (media, index) => {
 
       const scaleX = media.mesh.scale.x / 2
       if(this.x.direction === 'left'){
         const x = media.mesh.position.x + scaleX
-        if( x < -this.sizes.width/2){
+        if( x < -this.sizes.width*.55){
           media.extra.x += this.gallerySizes.width
         }
       }
       else if(this.x.direction === 'right'){
         const x = media.mesh.position.x - scaleX
-        if( x > (this.sizes.width/2)){
+        if( x > (this.sizes.width*.55)){
           media.extra.x -= this.gallerySizes.width
         }
       }
@@ -143,18 +163,18 @@ export default class Home{
 
         if(this.y.direction === 'top'){
           const y = media.mesh.position.y + scaleY
-          if( y < -this.sizes.height/2){
+          if( y < -this.sizes.height*.55){
             console.log('this element is out of top bounds')
             media.extra.y += this.gallerySizes.height
           }
         }
         else if(this.y.direction === 'bottom'){
           const y = media.mesh.position.y - scaleY
-          if(y > (this.sizes.height/2)){
+          if(y > (this.sizes.height*.55)){
           media.extra.y -= this.gallerySizes.height
           }
         }
-      media.update(this.scroll)
+      media.update(this.scroll, this.speed.current)
     })
   }
   // Destroyy
